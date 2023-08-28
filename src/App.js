@@ -59,8 +59,8 @@ function Board({squares, xTurn, onPlay}){
 export default function Game()
 {
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [xTurn, setXTurn] = useState(true);
   const [move, setMove] = useState(0);
+  const xTurn = move%2===0;
   const currentSquares = history[move];
 
   function handlePlay(newSquares)
@@ -68,14 +68,12 @@ export default function Game()
     const newhistory = [...history.slice(0, move+1), newSquares];
     setHistory(newhistory);
     setMove(newhistory.length-1);
-    setXTurn(!xTurn);
   }
 
   function jumpTo(step)
   {
     //console.log("jump to step:" + step);
     setMove(step);
-    setXTurn(step%2===0);
   }
 
   const states = history.map((value, index) => {
