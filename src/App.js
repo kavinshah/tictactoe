@@ -10,8 +10,8 @@ function Square({onClickHandler, value}) {
 }
 
 export default function Board(){
-  const [squares, setSquares] = useState(Array(9).fill(null));
   const [history, setHistory] = useState([Array(9).fill(null)]);
+  let squares = history[history.length-1];
   let state = '';
 
   function handleClick(index)
@@ -21,14 +21,14 @@ export default function Board(){
     const newsquares = squares.slice();
     newsquares[index]=!(history.length%2===0)?'X':'O';
     setHistory([...history, newsquares]);
-    setSquares(newsquares);
+    squares=newsquares;
   }
   
   function jumpTo(step)
   {
     //console.log("jump to step:" + step);
     setHistory(history.slice(0, step));
-    setSquares(history[step-1]);
+    squares=history[step-1];
   }
 
   let winner=calculateWinner(squares);
