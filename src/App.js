@@ -9,9 +9,7 @@ function Square({onClickHandler, value}) {
   );
 }
 
-export default function Board(){
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  let squares = history[history.length-1];
+function Board({squares, xTurn, onPlay}){
   let state = '';
 
   function handleClick(index)
@@ -19,18 +17,10 @@ export default function Board(){
     if(squares[index] || calculateWinner(squares))
       return;
     const newsquares = squares.slice();
-    newsquares[index]=!(history.length%2===0)?'X':'O';
-    setHistory([...history, newsquares]);
-    squares=newsquares;
+    newsquares[index]=xTurn?'X':'O';
+    onPlay(newsquares);
   }
   
-  function jumpTo(step)
-  {
-    //console.log("jump to step:" + step);
-    setHistory(history.slice(0, step));
-    squares=history[step-1];
-  }
-
   let winner=calculateWinner(squares);
 
   if(winner)
@@ -39,7 +29,50 @@ export default function Board(){
   }
   else
   {
-    state = 'Next Turn Player:' + (!(history.length%2===0)?'X':'O');
+    state = 'Next Turn Player:' + (xTurn?'X':'O');
+  }
+
+  return (
+    <>
+    <div className='state'>{state}</div>
+    <div className='board'>
+      <div className="board-row">
+        <Square onClickHandler={()=>handleClick(0)} value={squares[0]}/>
+        <Square onClickHandler={()=>handleClick(1)} value={squares[1]}/>
+        <Square onClickHandler={()=>handleClick(2)} value={squares[2]}/>
+      </div>
+      <div className="board-row">
+        <Square onClickHandler={()=>handleClick(3)} value={squares[3]}/>
+        <Square onClickHandler={()=>handleClick(4)} value={squares[4]}/>
+        <Square onClickHandler={()=>handleClick(5)} value={squares[5]}/>
+      </div>
+      <div className="board-row">
+        <Square onClickHandler={()=>handleClick(6)} value={squares[6]}/>
+        <Square onClickHandler={()=>handleClick(7)} value={squares[7]}/>
+        <Square onClickHandler={()=>handleClick(8)} value={squares[8]}/>
+      </div>
+    </div>
+    </>
+  );
+}
+
+export default function Game()
+{
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [xTurn, setXTurn] = useState(true);
+  let squares = history[history.length-1];
+
+  function handlePlay(newSquares)
+  {
+    setHistory([...history, newSquares]);
+    setXTurn(!xTurn);
+  }
+
+  function jumpTo(step)
+  {
+    //console.log("jump to step:" + step);
+    setHistory(history.slice(0, step));
+    squares=history[step-1];
   }
 
   const states = history.map((value, index) => {
@@ -53,29 +86,16 @@ export default function Board(){
     );
   });
 
-  return (
-    <>
-    <div className='state'>{state}</div>
-    <div className='board'>
-      <div className="board-row">
-      <Square onClickHandler={()=>handleClick(0)} value={squares[0]}/>
-      <Square onClickHandler={()=>handleClick(1)} value={squares[1]}/>
-      <Square onClickHandler={()=>handleClick(2)} value={squares[2]}/>
+  return(
+    <div className="game">
+      <div className="game-board">
+        <Board squares={squares} xTurn={xTurn} onPlay={handlePlay} />
       </div>
-      <div className="board-row">
-      <Square onClickHandler={()=>handleClick(3)} value={squares[3]}/>
-      <Square onClickHandler={()=>handleClick(4)} value={squares[4]}/>
-      <Square onClickHandler={()=>handleClick(5)} value={squares[5]}/>
-      </div>
-      <div className="board-row">
-      <Square onClickHandler={()=>handleClick(6)} value={squares[6]}/>
-      <Square onClickHandler={()=>handleClick(7)} value={squares[7]}/>
-      <Square onClickHandler={()=>handleClick(8)} value={squares[8]}/>
+      <div className="game-info">
+        <ol>{states}</ol>
       </div>
     </div>
-    <ol>{states}</ol>
-    </>
-  );
+  ); 
 }
 
 function calculateWinner(squares)
