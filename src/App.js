@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function Square({onClickHandler, value}) {
+function Square({value, onClickHandler}) {
   return (
     <button
       className="square"
@@ -10,18 +10,21 @@ function Square({onClickHandler, value}) {
 }
 
 function Board({squares, xTurn, onPlay}){
-  let state = '';
 
   function handleClick(index)
   {
-    if(squares[index] || calculateWinner(squares))
+    if(calculateWinner(squares) || squares[index])
       return;
     const newsquares = squares.slice();
-    newsquares[index]=xTurn?'X':'O';
+    if(xTurn)
+      newsquares[index]='X'
+    else
+    newsquares[index]='O'
     onPlay(newsquares);
   }
   
   let winner=calculateWinner(squares);
+  let state;
 
   if(winner)
   {
@@ -34,7 +37,7 @@ function Board({squares, xTurn, onPlay}){
 
   return (
     <>
-    <div className='state'>{state}</div>
+    <div className='status'>{state}</div>
     <div className='board'>
       <div className="board-row">
         <Square onClickHandler={()=>handleClick(0)} value={squares[0]}/>
@@ -58,38 +61,43 @@ function Board({squares, xTurn, onPlay}){
 
 export default function Game()
 {
-  const [history, setHistory] = useState([Array(9).fill(null)]);
   const [xTurn, setXTurn] = useState(true);
-  let squares = history[history.length-1];
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [move, setMove] = useState(0);
+  const currentSquares = history[move];
 
   function handlePlay(newSquares)
   {
-    setHistory([...history, newSquares]);
+    const newhistory = [...history.slice(0, move+1), newSquares];
+    setHistory(newhistory);
+    setMove(newhistory.length-1);
     setXTurn(!xTurn);
   }
 
   function jumpTo(step)
   {
     //console.log("jump to step:" + step);
-    setHistory(history.slice(0, step));
-    squares=history[step-1];
+    setMove(step);
+    setXTurn(step%2===0);
   }
 
   const states = history.map((value, index) => {
-    let stepname='';
+    let stepname;
     if(index===0)
       stepname='go to Start';
     else
       stepname='go to Step:' + (index);
     return(
-    <li key={index}><button onClick={()=> jumpTo(index+1)}>{stepname}</button></li>
+    <li key={index}>
+      <button onClick={()=> jumpTo(index)}>{stepname}</button>
+    </li>
     );
   });
 
   return(
     <div className="game">
       <div className="game-board">
-        <Board squares={squares} xTurn={xTurn} onPlay={handlePlay} />
+        <Board squares={currentSquares} xTurn={xTurn} onPlay={handlePlay} />
       </div>
       <div className="game-info">
         <ol>{states}</ol>
