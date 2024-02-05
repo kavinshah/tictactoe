@@ -7,10 +7,10 @@ class Game extends React.Component{
 		super(props);
 		this.state={
 			turn:true,
-			currentStep:0,
-			cellStates:[null,null,null,null,null,null,null,null,null],
-			history:[],
-			winner:null,
+			currentStep: 0,
+			cellStates: Array(9).fill(null),
+			history: [],
+			winner: null,
 		};
 		this.handleClick=this.handleClick.bind(this);
 		this.handleStepClick=this.handleStepClick.bind(this);
@@ -84,13 +84,14 @@ class Game extends React.Component{
 		this.setState((state)=>({
 			turn:index%2===0,
 			currentStep:index,
-			cellStates:index>0?state.history[index-1]:[null,null,null,null,null,null,null,null,null],
+			cellStates:index>0?state.history[index-1]:Array(9).fill(null),
 			history: state.history.slice(0, index),
 			winner:null
 		}));
 	}
 	
 	render(){
+		console.log('cellStates', this.state.cellStates);
 		let banner='';
 		if(this.state.winner!=null){
 			banner = 'Winner: '+this.state.winner; 
@@ -145,7 +146,7 @@ class Cell extends React.Component{
 
 class Steps extends React.Component{
 		render(){
-			console.log(this.props.history);
+			//console.log(this.props.history);
 			return (
 				<div id='steps'>
 					<div>
