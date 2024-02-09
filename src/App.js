@@ -8,6 +8,7 @@ function Game(){
 	const [cellStates, setCellStates] = useState(Array(9).fill(null));
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
+	
 	const checkWinner = (states) => {
 		let winner=null;
 		//console.log('checking winner');
@@ -65,16 +66,16 @@ function Game(){
 	
 	const handleStepClick = (event) => {
 		let index=event.target.value;
-		//console.log('step clicked:', event.target.value);
 		setTurn(index%2===0);
 		setCurrentStep(index);
 		setCellStates(index>0?history[index-1]:Array(9).fill(null));
 		setHistory(history.slice(0, index));
-		setWinner(null);
+		setWinner(index==history.length?winner:null);
 	}
 	
 	const banner=()=> {
-		if(winner!=null){
+		console.log("winner:", winner);
+		if(winner != null){
 			return 'Winner: '+ winner; 
 		} else{
 			return 'Next Player: ' + (turn?'X':'O');
@@ -85,10 +86,9 @@ function Game(){
 		<div>
 			<p>{banner()}</p>
 			<Board cells={cellStates} handleClick={handleClick} />
-			<Steps step={currentStep} handleStepClick={handleStepClick} history={history}/>
+			<Steps step={currentStep} handleStepClick={handleStepClick} history={history} />
 		</div>
 	);
-	
 }
 
 function Board({cells, handleClick}){
@@ -124,13 +124,13 @@ function Cell({id, onClick, state}){
 function Steps({handleStepClick, history}){
 	return (
 		<div id='steps'>
-			<div>
+			<div key={0}>
 				<button id='step-0' onClick={handleStepClick} value='0'>Go to game start</button>
 			</div>
 			{
 				history.map((item, index)=> {
 					return (
-						<div>
+						<div key={index+1}>
 							<button id={'step-'+(index+1)} onClick={handleStepClick} value={index+1}>Go to move #{index+1}</button>
 						</div>
 					);
