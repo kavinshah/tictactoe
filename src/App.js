@@ -74,7 +74,7 @@ function Game(){
 	}
 	
 	const banner=()=> {
-		console.log("winner:", winner);
+		//console.log("winner:", winner);
 		if(winner != null){
 			return 'Winner: '+ winner; 
 		} else{
