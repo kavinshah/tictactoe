@@ -109,7 +109,56 @@ class Game extends React.Component{
 	}
 }
 
-class Board extends React.Component{
+function Board({cells, handleClick}){
+	return (
+		<div>
+			<div className='board-row'>
+				<Cell id='1' state={cells[0]} onClick={handleClick} />
+				<Cell id='2' state={cells[1]} onClick={handleClick} />
+				<Cell id='3' state={cells[2]} onClick={handleClick} />
+			</div>
+			<div className='board-row'>
+				<Cell id='4' state={cells[3]} onClick={handleClick} />
+				<Cell id='5' state={cells[4]} onClick={handleClick} />
+				<Cell id='6' state={cells[5]} onClick={handleClick} />
+			</div>
+			<div className='board-row'>
+				<Cell id='7' state={cells[6]} onClick={handleClick} />
+				<Cell id='8' state={cells[7]} onClick={handleClick} />
+				<Cell id='9' state={cells[8]} onClick={handleClick} />
+			</div>
+		</div>
+	);
+}
+
+function Cell({id, onClick, state}){
+	return (
+			<div>
+				<button id={id} className='square' onClick={onClick} value={state}>{state}</button>
+			</div>
+	);
+}
+
+function Steps({handleStepClick, history}){
+	return (
+		<div id='steps'>
+			<div>
+				<button id='step-0' onClick={handleStepClick} value='0'>Go to game start</button>
+			</div>
+			{
+				history.map((item, index)=> {
+					return (
+						<div>
+							<button id={'step-'+(index+1)} onClick={handleStepClick} value={index+1}>Go to move #{index+1}</button>
+						</div>
+					);
+				})
+			}
+		</div>
+	); 
+}
+
+/* class Board extends React.Component{
 	render(){
 		return (
 			<div>
@@ -132,9 +181,9 @@ class Board extends React.Component{
 		);
 	}
 	
-}
+} */
 
-class Cell extends React.Component{
+/* class Cell extends React.Component{
 	render(){
 		return (
 			<div>
@@ -142,9 +191,9 @@ class Cell extends React.Component{
 			</div>
 		);
 	}
-}
+} */
 
-class Steps extends React.Component{
+/* class Steps extends React.Component{
 		render(){
 			//console.log(this.props.history);
 			return (
@@ -164,6 +213,8 @@ class Steps extends React.Component{
 				</div>
 			);
 		}
-}
+} */
+
+
 
 export default Game;
