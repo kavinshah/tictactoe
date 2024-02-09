@@ -93,19 +93,19 @@ function Board({cells, handleCellClick}){
 	return (
 		<div>
 			<div className='board-row'>
-				<Cell id='1' state={cells[0]} onClick={handleClick} />
-				<Cell id='2' state={cells[1]} onClick={handleClick} />
-				<Cell id='3' state={cells[2]} onClick={handleClick} />
+				<Cell id='1' state={cells[0]} onClick={handleCellClick} />
+				<Cell id='2' state={cells[1]} onClick={handleCellClick} />
+				<Cell id='3' state={cells[2]} onClick={handleCellClick} />
 			</div>
 			<div className='board-row'>
-				<Cell id='4' state={cells[3]} onClick={handleClick} />
-				<Cell id='5' state={cells[4]} onClick={handleClick} />
-				<Cell id='6' state={cells[5]} onClick={handleClick} />
+				<Cell id='4' state={cells[3]} onClick={handleCellClick} />
+				<Cell id='5' state={cells[4]} onClick={handleCellClick} />
+				<Cell id='6' state={cells[5]} onClick={handleCellClick} />
 			</div>
 			<div className='board-row'>
-				<Cell id='7' state={cells[6]} onClick={handleClick} />
-				<Cell id='8' state={cells[7]} onClick={handleClick} />
-				<Cell id='9' state={cells[8]} onClick={handleClick} />
+				<Cell id='7' state={cells[6]} onClick={handleCellClick} />
+				<Cell id='8' state={cells[7]} onClick={handleCellClick} />
+				<Cell id='9' state={cells[8]} onClick={handleCellClick} />
 			</div>
 		</div>
 	);
@@ -123,13 +123,13 @@ function Steps({handleMoveClick, history}){
 	return (
 		<div id='steps'>
 			<div key={0}>
-				<button id='step-0' onClick={handleStepClick} value='0'>Go to game start</button>
+				<button id='step-0' onClick={handleMoveClick} value='0'>Go to game start</button>
 			</div>
 			{
 				history.map((item, index)=> {
 					return (
 						<div key={index+1}>
-							<button id={'step-'+(index+1)} onClick={handleStepClick} value={index+1}>Go to move #{index+1}</button>
+							<button id={'step-'+(index+1)} onClick={handleMoveClick} value={index+1}>Go to move #{index+1}</button>
 						</div>
 					);
 				})
