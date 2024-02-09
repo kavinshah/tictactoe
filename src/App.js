@@ -57,10 +57,9 @@ function Game(){
 			return;
 		}
 		cellStates[id]=turn?'X':'O';
-		let w = checkWinner(cellStates);
 		history.push([...cellStates]);
 		setTurn(!turn);
-		setWinner(w);
+		setWinner(checkWinner(cellStates));
 		setCurrentStep(currentStep-1);
 	}
 	
