@@ -50,7 +50,7 @@ function Game(){
 		return winner;
 	}
 	
-	const handleClick = (event)=> {
+	const handleCellClick = (event)=> {
 		let id=event.target.id-1;
 		//console.log('id:', id);
 		if(cellStates[id] || winner){
@@ -64,7 +64,7 @@ function Game(){
 		setCurrentStep(currentStep-1);
 	}
 	
-	const handleStepClick = (event) => {
+	const handleMoveClick = (event) => {
 		let index=event.target.value;
 		setTurn(index%2===0);
 		setCurrentStep(index);
@@ -74,7 +74,6 @@ function Game(){
 	}
 	
 	const banner=()=> {
-		//console.log("winner:", winner);
 		if(winner != null){
 			return 'Winner: '+ winner; 
 		} else{
@@ -85,13 +84,13 @@ function Game(){
 	return (
 		<div>
 			<p>{banner()}</p>
-			<Board cells={cellStates} handleClick={handleClick} />
-			<Steps step={currentStep} handleStepClick={handleStepClick} history={history} />
+			<Board cells={cellStates} handleCellClick={handleCellClick} />
+			<Steps step={currentStep} handleMoveClick={handleMoveClick} history={history} />
 		</div>
 	);
 }
 
-function Board({cells, handleClick}){
+function Board({cells, handleCellClick}){
 	return (
 		<div>
 			<div className='board-row'>
@@ -121,7 +120,7 @@ function Cell({id, onClick, state}){
 	);
 }
 
-function Steps({handleStepClick, history}){
+function Steps({handleMoveClick, history}){
 	return (
 		<div id='steps'>
 			<div key={0}>
