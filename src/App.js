@@ -113,9 +113,9 @@ function Board({cells, handleCellClick}){
 
 function Cell({id, onClick, state}){
 	return (
-			<div>
-				<button id={id} className='square' onClick={onClick} value={state}>{state}</button>
-			</div>
+		<div>
+			<button id={id} className='square' onClick={onClick} value={state}>{state}</button>
+		</div>
 	);
 }
 
