@@ -70,7 +70,7 @@ function Game(){
 		setCellStates(index>0?history[index-1]:Array(9).fill(null));
 		setHistory(history.slice(0, index));
 		setWinner(parseInt(index)===history.length?winner:null);
-	}
+	}	
 	
 	const banner=()=> {
 		if(winner != null){
