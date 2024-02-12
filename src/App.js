@@ -81,7 +81,7 @@ function Game(){
 	};
 	
 	return (
-		<div>
+		<div className='game'>
 			<p>{banner()}</p>
 			<Board cells={cellStates} handleCellClick={handleCellClick} />
 			<Steps step={currentStep} handleMoveClick={handleMoveClick} history={history} />
