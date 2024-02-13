@@ -17,7 +17,7 @@ const router = createBrowserRouter([
 		element: <Home />,
 	},
 	{
-		path:'tictactoe/game',
+		path:'tictactoe/game/:params',
 		element: <Game />,
 	},
 ]);

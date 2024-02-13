@@ -1,13 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
 
-function Game(){
+const SINGLE_PLAYER = "singleplayer";
+const MULTI_PLAYER = "multiplayer";
+
+function Game(props){
 	const [turn, setTurn] = useState(true);
 	const [currentStep, setCurrentStep] = useState(0);
 	const [cellStates, setCellStates] = useState(Array(9).fill(null));
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
+	let mode = useParams().params;
 	
 	const checkWinner = (states) => {
 		let winner=null;
@@ -52,15 +57,34 @@ function Game(){
 	
 	const handleCellClick = (event)=> {
 		let id=event.target.id-1;
+		let currentTurn = turn?'X':'O';
+		let nextTurn = turn?'O':'X';
+		
 		//console.log('id:', id);
 		if(cellStates[id] || winner){
 			return;
 		}
-		cellStates[id]=turn?'X':'O';
+		cellStates[id] = currentTurn;
 		history.push([...cellStates]);
-		setTurn(!turn);
+		setTurn((turn)=>!turn);
 		setWinner(checkWinner(cellStates));
-		setCurrentStep(currentStep-1);
+		setCurrentStep((currentStep)=>currentStep-1);
+		
+		if(mode===SINGLE_PLAYER && history.length<9){
+			do{
+				id=Math.floor((Math.random()*9));
+			} while(cellStates[id]);
+			
+			//console.log('id:', id);
+			if(cellStates[id] || checkWinner(cellStates)){
+				return;
+			}
+			cellStates[id] = nextTurn;
+			history.push([...cellStates]);
+			setTurn((turn)=>!turn);
+			setWinner(checkWinner(cellStates));
+			setCurrentStep((currentStep)=>currentStep-1);
+		}
 	}
 	
 	const handleMoveClick = (event) => {
