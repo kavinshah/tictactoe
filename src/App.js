@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 
 const SINGLE_PLAYER = "singleplayer";
-const MULTI_PLAYER = "multiplayer";
+//const MULTI_PLAYER = "multiplayer";
 
 function Game(props){
 	const [turn, setTurn] = useState(true);

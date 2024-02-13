@@ -9,15 +9,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-const baseurl='tictactoe';
+const baseurl='';
 
 const router = createBrowserRouter([
 	{
-		path:'tictactoe/',
+		path:baseurl.concat('/'),
 		element: <Home />,
 	},
 	{
-		path:'tictactoe/game/:params',
+		path:baseurl.concat('/game/:params'),
 		element: <Game />,
 	},
 ]);
