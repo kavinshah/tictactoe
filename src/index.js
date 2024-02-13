@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Game from './App';
 import Home from './Home';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -13,12 +13,12 @@ const baseurl='tictactoe';
 
 const router = createBrowserRouter([
 	{
-		path:baseurl.concat("/"),
+		path:'tictactoe/',
 		element: <Home />,
 	},
 	{
-		path:baseurl.concat("/game"),
-		element: <App />,
+		path:'tictactoe/game',
+		element: <Game />,
 	},
 ]);
 
