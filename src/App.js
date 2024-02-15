@@ -12,7 +12,7 @@ function Game(props){
 	const [cellStates, setCellStates] = useState(Array(9).fill(null));
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
-	let mode = useParams().params;
+	let mode = useParams().mode;
 	
 	const checkWinner = (states) => {
 		let winner=null;

@@ -17,7 +17,7 @@ const router = createBrowserRouter([
 		element: <Home />,
 	},
 	{
-		path:baseurl.concat('/game/:params'),
+		path:baseurl.concat('/game/:mode'),
 		element: <Game />,
 	},
 ]);
