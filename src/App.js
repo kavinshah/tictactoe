@@ -96,7 +96,7 @@ function Game(props){
 		setWinner(parseInt(index)===history.length?winner:null);
 	}
 	
-	const banner=()=> {
+	const gameStatus=()=> {
 		if(winner != null){
 			return 'Winner: '+ winner; 
 		} else{
@@ -106,7 +106,7 @@ function Game(props){
 	
 	return (
 		<div className='game'>
-			<p>{banner()}</p>
+			<p>{gameStatus()}</p>
 			<Board cells={cellStates} handleCellClick={handleCellClick} />
 			<Steps step={currentStep} handleMoveClick={handleMoveClick} history={history} />
 		</div>

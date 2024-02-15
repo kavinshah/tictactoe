@@ -5,8 +5,13 @@ import React from 'react';
 function Home(){
 	return (
 		<div className='center'>
-			<a id='single' className='btn btn-primary' href="/tictactoe/game/singleplayer">Play with computer</a>
-			<a id='twoplayer' className='btn btn-primary' href="/tictactoe/game/multiplayer">Play with  human</a>
+			<div>
+				<a id='single' className='btn btn-primary' href="/tictactoe/game/singleplayer">Play with computer</a>
+			</div>
+			<br />
+			<div>
+				<a id='twoplayer' className='btn btn-primary' href="/tictactoe/game/multiplayer">Play with  human</a>
+			</div>
 		</div>
 	);
 }
