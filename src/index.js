@@ -5,19 +5,19 @@ import Game from './App';
 import Home from './Home';
 import reportWebVitals from './reportWebVitals';
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
 //const baseurl='tictactoe';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
-		path:('/tictactoe'),
+		path:('/'),
 		element: <Home />,
 	},
 	{
-		path:('/tictactoe/game/:mode'),
+		path:('/game/:mode'),
 		element: <Game />,
 	},
 ]);
