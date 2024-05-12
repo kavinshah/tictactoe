@@ -3,8 +3,8 @@ import './App.css';
 import React, { useState } from 'react';
 
 function Home(){
-	const [playername1, setName1] = useState("");
-	const [playername2, setName2] = useState("");
+	const [playername1, setName1] = useState("player1");
+	const [playername2, setName2] = useState("player2");
 
 	return (
 		<div className='center'>
