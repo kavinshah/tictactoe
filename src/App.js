@@ -13,6 +13,7 @@ function Game(props){
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
 	let mode = useParams().mode;
+	let playerName = useParams().playername;
 	
 	const checkWinner = (states) => {
 		let winner=null;
@@ -105,11 +106,14 @@ function Game(props){
 	};
 	
 	return (
+		<>
+		<h1>Welcome, {playerName}!</h1>
 		<div className='game'>
 			<p>{gameStatus()}</p>
 			<Board cells={cellStates} handleCellClick={handleCellClick} />
 			<Steps step={currentStep} handleMoveClick={handleMoveClick} history={history} />
 		</div>
+		</>
 	);
 }
 
