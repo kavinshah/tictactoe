@@ -3,19 +3,24 @@ import './App.css';
 import React, { useState } from 'react';
 
 function Home(){
-	const [playername, setName] = useState("");
+	const [playername1, setName1] = useState("");
+	const [playername2, setName2] = useState("");
+
 	return (
 		<div className='center'>
 			<div>
-				<input type='text' id='name' placeholder='Player Name' onChange={(e) => {setName(e.target.value);}} autoFocus />
+				<input type='text' id='playername1' placeholder='Player 1' onChange={(e) => {setName1(e.target.value);}} autoFocus />
+				<br />
+				<br />
+				<input type='text' id='playername2' placeholder='Player 2' onChange={(e) => {setName2(e.target.value);}} />
 			</div>
 			<br />
 			<div>
-				<a id='single' className='btn btn-primary' href={'/tictactoe/#/game/singleplayer/'.concat(playername)}>Play with computer</a>
+				<a id='single' className='btn btn-primary' href={'/tictactoe/#/game/singleplayer/'.concat(playername1).concat('/').concat(playername2)}>Play with computer</a>
 			</div>
 			<br />
 			<div>
-				<a id='twoplayer' className='btn btn-primary' href={'/tictactoe/#/game/multiplayer/'.concat(playername)}>Play with human</a>
+				<a id='twoplayer' className='btn btn-primary' href={'/tictactoe/#/game/multiplayer/'.concat(playername1).concat('/').concat(playername2)}>Play with human</a>
 			</div>
 		</div>
 	);

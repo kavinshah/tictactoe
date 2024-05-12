@@ -13,8 +13,13 @@ function Game(props){
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
 	let mode = useParams().mode;
-	let playerName = useParams().playername;
+	let playerName1 = useParams().playername1;
+	let playerName2 = useParams().playername2;
 	
+	if(mode === SINGLE_PLAYER){
+		playerName2 = "Computer";
+	}
+
 	const checkWinner = (states) => {
 		let winner=null;
 		//console.log('checking winner');
@@ -99,15 +104,15 @@ function Game(props){
 	
 	const gameStatus=()=> {
 		if(winner != null){
-			return 'Winner: '+ winner; 
+			return 'Winner: '.concat(winner=='X'?playerName1:playerName2);
 		} else{
-			return 'Next Player: ' + (turn?'X':'O');
+			return 'Next Player: '.concat(turn?playerName1:playerName2);
 		}
 	};
 	
 	return (
 		<>
-		<h1>Welcome, {playerName}!</h1>
+		<h1>Welcome, {playerName1.concat(mode===SINGLE_PLAYER?"":" and ".concat(playerName2))}!</h1>
 		<div className='game'>
 			<p>{gameStatus()}</p>
 			<Board cells={cellStates} handleCellClick={handleCellClick} />
