@@ -95,12 +95,10 @@ function Game(props){
 	
 	const handleMoveClick = (event) => {
 		let index=event.target.value;
-		//let id;
 		setTurn(index%2===0);
 		setCurrentStep(index);
 		setCellStates(index>0?history[index-1]:Array(9).fill(null));
 		setHistory(history.slice(0, index));
-		setWinner(parseInt(index)===history.length?winner:null);
 	}
 	
 	const gameStatus=()=> {
