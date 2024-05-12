@@ -95,6 +95,7 @@ function Game(props){
 	
 	const handleMoveClick = (event) => {
 		let index=event.target.value;
+		//let id;
 		setTurn(index%2===0);
 		setCurrentStep(index);
 		setCellStates(index>0?history[index-1]:Array(9).fill(null));
@@ -104,7 +105,7 @@ function Game(props){
 	
 	const gameStatus=()=> {
 		if(winner != null){
-			return 'Winner: '.concat(winner=='X'?playerName1:playerName2);
+			return 'Winner: '.concat(winner==='X'?playerName1:playerName2);
 		} else{
 			return 'Next Player: '.concat(turn?playerName1:playerName2);
 		}
