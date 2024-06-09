@@ -124,6 +124,7 @@ function Game(props){
 			setWinner(checkWinner(cellStates));
 			setCurrentStep(index+1);
 		} else {
+			//initialise cell states manually so that winner can be checked concurrently.
 			for(let i=0; i<9; i++)
 				cellStates[i] = index>0 ? history[index-1][i] : null;
 			setHistory(history.slice(0, index));
