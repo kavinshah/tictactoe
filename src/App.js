@@ -94,11 +94,43 @@ function Game(props){
 	}
 	
 	const handleMoveClick = (event) => {
-		let index=event.target.value;
-		setTurn(index%2===0);
-		setCurrentStep(index);
-		setCellStates(index>0?history[index-1]:Array(9).fill(null));
-		setHistory(history.slice(0, index));
+		let index=parseInt(event.target.value);
+		//console.log("index", index);
+		//console.log("history:", history);
+		
+		if(index>=9 || index===history.length)
+			return;
+		
+		if(mode===SINGLE_PLAYER && index%2===1)
+		{
+			//next step is computer
+			let id;
+			do{
+				id=Math.floor((Math.random()*9));
+			} while(history[index-1][id]);
+			
+			//console.log("next step:", id);
+			
+			for(let i=0; i<9; i++)
+			{
+				cellStates[i]=history[index-1][i];
+				history[index][i] = history[index-1][i];
+			}
+			
+			cellStates[id]='O';
+			history[index][id] = 'O';
+			setHistory(history.slice(0, index+1));
+			setTurn(true);
+			setWinner(checkWinner(cellStates));
+			setCurrentStep(index+1);
+		} else {
+			for(let i=0; i<9; i++)
+				cellStates[i] = index>0 ? history[index-1][i] : null;
+			setHistory(history.slice(0, index));
+			setTurn(index%2===0);
+			setWinner(checkWinner(cellStates));
+			setCurrentStep(index);
+		}
 	}
 	
 	const gameStatus=()=> {
@@ -115,7 +147,7 @@ function Game(props){
 		<div className='game'>
 			<p>{gameStatus()}</p>
 			<Board cells={cellStates} handleCellClick={handleCellClick} />
-			<Steps step={currentStep} handleMoveClick={handleMoveClick} history={history} />
+			<Steps handleMoveClick={handleMoveClick} history={history} />
 		</div>
 		</>
 	);
